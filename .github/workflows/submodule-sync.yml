@@ -1,0 +1,39 @@
+name: Sync Submodules
+on:
+  repository_dispatch:
+    types: ["sync-schema"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    # runs in an environment with a wait timer so that if you want to update
+    # the schema and package at the same time you don't have to race the PR
+    environment: delayed-schema-sync
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      - name: Update references
+        run: git submodule update --remote --recursive
+      - name: Open PR
+        id: pr
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{secrets.PR_CREATION}}
+          title: Update submodules
+          commit-message: Update submodules
+          labels: dependencies
+      - name: Approve and automerge PR
+        # only actually approve and merge if we actually made a PR
+        if: ${{steps.pr.outputs.pull-request-url}}
+        run: |
+          gh pr merge --auto --rebase "$PR_URL"
+          gh pr review --approve "$PR_URL"
+        env:
+          PR_URL: ${{steps.pr.outputs.pull-request-url}}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
