@@ -4,12 +4,7 @@ updates:
     directory: /
     schedule:
       interval: daily
-  # Remove this block; you'll set up a push-driven submodule update workflow
-  - package-ecosystem: gitsubmodule
+  - package-ecosystem: nuget
     directory: /
     schedule:
-      interval: daily
-  # - package-ecosystem: <your package manager here>
-  #   directory: /
-  #   schedule:
-  #     interval: weekly
+      interval: weekly
