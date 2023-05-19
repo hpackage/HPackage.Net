@@ -21,9 +21,5 @@ namespace HPackage.Net
 		{
 			Errors = new ReadOnlyCollection<string>(errors);
 		}
-
-		protected ValidationException(
-		  System.Runtime.Serialization.SerializationInfo info,
-		  System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
 	}
 }

@@ -18,10 +18,16 @@
     </ItemGroup>
 
     <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+        <PropertyGroup>
+            <GeneratedFileName>Types.g.cs</GeneratedFileName>
+        </PropertyGroup>
         <Exec Command="echo Installing quicktype" />
         <Exec Command="npm install -g quicktype" />
         <Exec Command="echo Generating types" />
-        <Exec Command="quicktype -o Types.g.cs -l cs --src ../schema/hpackage.schema.json --src-lang schema --framework NewtonSoft --array-type list --namespace HPackage.Net --top-level HollowKnightPackageDef" />
+        <Exec Command="quicktype -o $(GeneratedFileName) -l cs --src ../schema/hpackage.schema.json --src-lang schema --framework NewtonSoft --array-type list --namespace HPackage.Net --top-level HollowKnightPackageDef" />
+        <ItemGroup>
+            <Compile Include="$(GeneratedFileName)" />
+        </ItemGroup>
     </Target>
 
 </Project>
