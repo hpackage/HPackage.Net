@@ -12,14 +12,16 @@
     </ItemGroup>
 
     <ItemGroup>
-        <EmbeddedResource Include="../schema/hpackage.schema.json" />
+        <EmbeddedResource Include="../schema/hpackage.schema.json">
+            <LogicalName>HPackage.Net.Schema</LogicalName>
+        </EmbeddedResource>
     </ItemGroup>
 
     <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
         <Exec Command="echo Installing quicktype" />
         <Exec Command="npm install -g quicktype" />
         <Exec Command="echo Generating types" />
-        <Exec Command="quicktype -o Types.g.cs -l cs --src ../schema/hpackage.schema.json --src-lang schema --framework NewtonSoft --array-type list --namespace HPackage.Net --top-level HollowKnightPackageDef --check-required" />
+        <Exec Command="quicktype -o Types.g.cs -l cs --src ../schema/hpackage.schema.json --src-lang schema --framework NewtonSoft --array-type list --namespace HPackage.Net --top-level HollowKnightPackageDef" />
     </Target>
 
 </Project>

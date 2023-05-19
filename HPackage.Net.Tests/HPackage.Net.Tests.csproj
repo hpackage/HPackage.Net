@@ -10,6 +10,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="FluentAssertions" Version="6.11.0" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.0" />
         <!--Required for .net framework to test on linux mono. May be able to update workflow and remove this once https://github.com/dotnet/runtime/issues/81395 is resolved-->
         <PackageReference Include="Microsoft.TestPlatform.ObjectModel" Version="17.6.0" />
@@ -22,6 +23,10 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\HPackage.Net\HPackage.Net.csproj" />
     </ItemGroup>
 
 </Project>
