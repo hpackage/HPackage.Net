@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HPackage.Net.Tests
+namespace HPackage.Net.Tests.Data
 {
-    internal class ValidPackageDefs : IEnumerable<object[]>
+    internal class ValidPackageDefJsonPairs : IEnumerable<object[]>
     {
         public IEnumerator<object[]> GetEnumerator()
         {
@@ -34,7 +34,7 @@ namespace HPackage.Net.Tests
                     },
                     "releaseAssets": "bin/Publish/TheRealJournalRando.zip"
                 }
-                """, 
+                """,
                 new HollowKnightPackageDef()
                 {
                     Name = "TheRealJournalRando",
@@ -65,6 +65,6 @@ namespace HPackage.Net.Tests
         private object[] Pair(string content, HollowKnightPackageDef def)
         {
             return new object[] { content, def };
-        } 
+        }
     }
 }

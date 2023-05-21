@@ -1,6 +1,9 @@
 
 
+using HPackage.Net.Tests.Data;
 using Newtonsoft.Json;
+using Xunit;
+using Xunit.Sdk;
 
 namespace HPackage.Net.Tests
 {
@@ -38,30 +41,46 @@ namespace HPackage.Net.Tests
                 ]
             }
             """)]
-        public void InvalidObjectsThrowsValidationException(string content)
+        public void DeserializeInvalidJsonThrowsValidationException(string content)
         {
-            Action action = () => HollowKnightPackageValidation.ParseValidate(content);
+            Action action = () => HollowKnightPackageDef.FromJsonValidated(content);
             action.Should().Throw<ValidationException>().Which.Errors.Should().NotBeEmpty();
         }
 
         [Theory]
         // this could probably use some additional exercise but idk how to make bad json
         [InlineData("{")]
-        public void InvalidJsonThrowsSerializationException(string content)
+        public void DeserializeMalformedJsonThrowsSerializationException(string content)
         {
-            Action action = () => HollowKnightPackageValidation.ParseValidate(content);
+            Action action = () => HollowKnightPackageDef.FromJsonValidated(content);
             action.Should().Throw<JsonSerializationException>();
         }
 
         [Theory]
-        [ClassData(typeof(ValidPackageDefs))]
-        public void ValidObjectReturnsPackageObject(string content, HollowKnightPackageDef expectedPackageDef)
+        [ClassData(typeof(ValidPackageDefJsonPairs))]
+        public void DeserializeValidJsonReturnsPackageObject(string content, HollowKnightPackageDef expectedPackageDef)
         {
-            HollowKnightPackageDef actualDef = HollowKnightPackageValidation.ParseValidate(content);
+            HollowKnightPackageDef actualDef = HollowKnightPackageDef.FromJsonValidated(content);
             actualDef.Should().BeEquivalentTo(expectedPackageDef, options => options
                 .ComparingByMembers<ReleaseAssets>()
                 .ComparingByMembers<ReferenceVersion>()
                 .ComparingByMembers<References>());
+        }
+
+        [Theory]
+        [ClassData(typeof(SerializeInvalidPackages))]
+        public void SerializeInvalidPackageObjectThrowsValidationException(HollowKnightPackageDef def)
+        {
+            Action action = () => def.ToJsonValidated();
+            action.Should().Throw<ValidationException>().Which.Errors.Should().NotBeEmpty();
+        }
+
+        [Theory(Skip = "This test has some issues with indentation and ordering yet to be resolved")]
+        [ClassData(typeof(ValidPackageDefJsonPairs))]
+        public void SerializeValidPackageObjectReturnsCorrectJson(string expectedContent, HollowKnightPackageDef def)
+        {
+            string actualContent = def.ToJsonValidated();
+            actualContent.Should().Be(expectedContent);
         }
     }
 }

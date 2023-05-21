@@ -8,18 +8,18 @@ using System.Text;
 
 namespace HPackage.Net
 {
-    public static class HollowKnightPackageValidation
+    public partial class HollowKnightPackageDef
     {
         static readonly JSchema schema;
 
-        static HollowKnightPackageValidation()
+        static HollowKnightPackageDef()
         {
-            using Stream s = typeof(HollowKnightPackageValidation).Assembly.GetManifestResourceStream("HPackage.Net.Schema");
+            using Stream s = typeof(HollowKnightPackageDef).Assembly.GetManifestResourceStream("HPackage.Net.Schema");
             using StreamReader sr = new(s);
             schema = JSchema.Parse(sr.ReadToEnd());
         }
 
-        public static HollowKnightPackageDef ParseValidate(string content)
+        public static HollowKnightPackageDef FromJsonValidated(string content)
         {
             JsonTextReader reader = new(new StringReader(content));
             JSchemaValidatingReader validatingReader = new(reader) { Schema = schema };
@@ -36,6 +36,27 @@ namespace HPackage.Net
             }
             // if the root value is null, that should actually fail validation so we can be confident that def is nonnull here
             return def!;
+        }
+
+        public string ToJsonValidated(Formatting formatting = Formatting.Indented)
+        {
+            StringWriter sw = new();
+            JsonTextWriter writer = new(sw);
+            writer.Formatting = formatting;
+            JSchemaValidatingWriter validatingWriter = new(writer);
+            validatingWriter.Schema = schema;
+
+            List<string> errors = new();
+            validatingWriter.ValidationEventHandler += (_, a) => errors.Add(a.Message);
+
+            JsonSerializer serializer = JsonSerializer.Create(Converter.Settings);
+            serializer.Serialize(validatingWriter, this);
+
+            if (errors.Count > 0)
+            {
+                throw new ValidationException(errors);
+            }
+            return sw.ToString();
         }
     }
 }
