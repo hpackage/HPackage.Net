@@ -75,7 +75,7 @@ namespace HPackage.Net.Tests
             action.Should().Throw<ValidationException>().Which.Errors.Should().NotBeEmpty();
         }
 
-        [Theory(Skip = "This test has some issues with indentation and ordering yet to be resolved")]
+        [Theory]
         [ClassData(typeof(ValidPackageDefJsonPairs))]
         public void SerializeValidPackageObjectReturnsCorrectJson(string expectedContent, HollowKnightPackageDef def)
         {

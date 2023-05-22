@@ -17,6 +17,8 @@ namespace HPackage.Net
             using Stream s = typeof(HollowKnightPackageDef).Assembly.GetManifestResourceStream("HPackage.Net.Schema");
             using StreamReader sr = new(s);
             schema = JSchema.Parse(sr.ReadToEnd());
+            Converter.Settings.ContractResolver = new PreferredOrderContractResolver();
+            Converter.Settings.Converters.Add(new SortedStringMapWriterConverter<ReferenceVersion>());
         }
 
         public static HollowKnightPackageDef FromJsonValidated(string content)
@@ -43,6 +45,8 @@ namespace HPackage.Net
             StringWriter sw = new();
             JsonTextWriter writer = new(sw);
             writer.Formatting = formatting;
+            writer.Indentation = 4;
+            writer.IndentChar = ' ';
             JSchemaValidatingWriter validatingWriter = new(writer);
             validatingWriter.Schema = schema;
 

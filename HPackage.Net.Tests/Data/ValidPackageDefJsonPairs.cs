@@ -16,21 +16,23 @@ namespace HPackage.Net.Tests.Data
                 {
                     "name": "TheRealJournalRando",
                     "description": "Randomizer 4 addon that adds the option to randomize all other Hunter's Journal entries.",
-                    "authors": ["BadMagic"],
+                    "authors": [
+                        "BadMagic"
+                    ],
                     "repository": "https://github.com/BadMagic100/TheRealJournalRando",
                     "dependencies": [
                         "ItemChanger"
                     ],
                     "devDependencies": {
+                        "ItemSync": "@modlinks",
+                        "MoreLocations": "@latest",
                         "Randomizer 4": {
+                            "alternateInstallName": "RandomizerMod",
                             "ref": {
                                 "useLatestPublished": true
-                            },
-                            "alternateInstallName": "RandomizerMod"
+                            }
                         },
-                        "ItemSync": "@modlinks",
-                        "RandoSettingsManager": "@latest",
-                        "MoreLocations": "@latest"
+                        "RandoSettingsManager": "@latest"
                     },
                     "releaseAssets": "bin/Publish/TheRealJournalRando.zip"
                 }
