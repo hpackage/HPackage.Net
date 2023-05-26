@@ -5,8 +5,6 @@ using System.Text;
 
 namespace HPackage.Net
 {
-
-
 	[Serializable]
 	public class ValidationException : Exception
 	{

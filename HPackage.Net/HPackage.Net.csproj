@@ -4,6 +4,15 @@
         <TargetFramework>netstandard2.0</TargetFramework>
         <LangVersion>latest</LangVersion>
         <Nullable>enable</Nullable>
+        <Title>HPackage</Title>
+        <Authors>HPackage</Authors>
+        <Description>.NET client package for interacting with the Hollow Knight Package Definition (hpackage) JSON format.</Description>
+        <Copyright>Copyright (c) 2023 hpackage</Copyright>
+        <PackageProjectUrl>https://github.com/hpackage</PackageProjectUrl>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <RepositoryUrl>https://github.com/hpackage/HPackage.Net</RepositoryUrl>
+        <Version>0.1.0</Version>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
     </PropertyGroup>
 
     <ItemGroup>
@@ -15,6 +24,13 @@
         <EmbeddedResource Include="../schema/hpackage.schema.json">
             <LogicalName>HPackage.Net.Schema</LogicalName>
         </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include="..\README.md">
+        <Pack>True</Pack>
+        <PackagePath>\</PackagePath>
+      </None>
     </ItemGroup>
 
     <Target Name="PreBuild" BeforeTargets="PreBuildEvent">

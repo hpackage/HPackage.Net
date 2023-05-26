@@ -21,6 +21,12 @@ namespace HPackage.Net
             Converter.Settings.Converters.Add(new SortedStringMapWriterConverter<ReferenceVersion>());
         }
 
+        /// <summary>
+        /// Parses and validates a JSON string as a HollowKnightPackageDef.
+        /// </summary>
+        /// <param name="content">The JSON to parse.</param>
+        /// <returns>A schema-compliant package definition.</returns>
+        /// <exception cref="ValidationException">Thrown when validation errors are present.</exception>
         public static HollowKnightPackageDef FromJsonValidated(string content)
         {
             JsonTextReader reader = new(new StringReader(content));
@@ -40,6 +46,12 @@ namespace HPackage.Net
             return def!;
         }
 
+        /// <summary>
+        /// Converts a HollowKnightPackageDef to a JSON string.
+        /// </summary>
+        /// <param name="formatting">The formatting style to use.</param>
+        /// <returns>A schema-compliant JSON string.</returns>
+        /// <exception cref="ValidationException">Thrown when validation errors are present.</exception>
         public string ToJsonValidated(Formatting formatting = Formatting.Indented)
         {
             StringWriter sw = new();
