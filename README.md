@@ -1,6 +1,6 @@
 # HPackage.Net
 
-.NET client package for Hollow Knight PackageDefs. Types are genreated from the schema at https://github.com/hpackage/hpackage-schema
+.NET client package for Hollow Knight PackageDefs. Types are generated from the schema at https://github.com/hpackage/hpackage-schema
 using [quicktype](https://github.com/quicktype/quicktype). Quicktype does not generate documentation on the generated classes, you can
 reference the documentation in the schema itself for information on the schema types.
 
