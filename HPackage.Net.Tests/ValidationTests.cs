@@ -2,8 +2,6 @@
 
 using HPackage.Net.Tests.Data;
 using Newtonsoft.Json;
-using Xunit;
-using Xunit.Sdk;
 
 namespace HPackage.Net.Tests
 {
