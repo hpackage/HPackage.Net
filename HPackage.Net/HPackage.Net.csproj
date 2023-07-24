@@ -38,7 +38,7 @@
             <GeneratedFileName>Types.g.cs</GeneratedFileName>
         </PropertyGroup>
         <Exec Command="echo Installing quicktype" />
-        <Exec Command="npm install -g quicktype" />
+        <Exec Command="npm install -g quicktype@23.0.49" />
         <Exec Command="echo Generating types" />
         <Exec Command="quicktype -o $(GeneratedFileName) -l cs --src ../schema/hpackage.schema.json --src-lang schema --framework NewtonSoft --array-type list --namespace HPackage.Net --top-level HollowKnightPackageDef" />
         <ItemGroup>
