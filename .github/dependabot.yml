@@ -8,3 +8,9 @@ updates:
     directory: /
     schedule:
       interval: weekly
+    groups:
+      # this group of dependencies go together, pending this issue: https://github.com/dotnet/runtime/issues/81395
+      testplatform:
+        patterns:
+          - "Microsoft.NET.Test.Sdk"
+          - "Microsoft.TestPlatform.ObjectModel"
