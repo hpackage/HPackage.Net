@@ -22,12 +22,6 @@ jobs:
           dotnet-version: |
             6.0.x
             7.0.x
-      - name: Setup Mono # Currently required until https://github.com/dotnet/runtime/issues/81395 is resolved
-        run: |
-          sudo apt install -y ca-certificates gnupg
-          sudo gpg --homedir /tmp --no-default-keyring --keyring /usr/share/keyrings/mono-official-archive-keyring.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
-          sudo apt update
-          sudo apt install -y mono-devel
       - name: Restore
         run: dotnet restore
       - name: Build
