@@ -14,7 +14,7 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: recursive
-    - uses: actions/setup-node@v4 # for quicktype
+    - uses: actions/setup-node@v5 # for quicktype
       with:
         node-version: 18.x
     - uses: actions/setup-dotnet@v5
